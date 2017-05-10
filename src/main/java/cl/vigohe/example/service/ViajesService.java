@@ -2,6 +2,8 @@ package cl.vigohe.example.service;
 
 import cl.vigohe.example.domain.Estimation;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +18,8 @@ import java.util.List;
 public class ViajesService {
     private final RestTemplate restTemplate;
 
+    private static final Logger logger = LoggerFactory.getLogger(ViajesService.class);
+
     public ViajesService(RestTemplate rest) {
         this.restTemplate = rest;
     }
@@ -23,6 +27,8 @@ public class ViajesService {
     //commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="6000")}
     @HystrixCommand(fallbackMethod = "fallback")
     public List getEstimations() {
+        logger.info("Check my thread...");
+
         URI uri = URI.create("http://localhost:9000/poor/estimations");
         return this.restTemplate.getForObject(uri, List.class);
     }
