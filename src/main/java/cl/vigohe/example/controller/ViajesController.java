@@ -4,6 +4,7 @@ import cl.vigohe.example.service.ViajesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by vigohe on 08-05-17.
  */
 @RestController
+@RequestMapping(value = "/api")
 public class ViajesController {
 
     private static final Logger logger = LoggerFactory.getLogger(ViajesController.class);
@@ -22,11 +24,16 @@ public class ViajesController {
         this.viajesService = viajesService;
     }
 
-    @GetMapping("/api/estimations")
-    public List getEstimations(){
+    @GetMapping("/circuit-breaker/enable/estimations")
+    public List getEstimationsWithCircuitBreaker(){
         logger.info("Calling from the tomcat thread...");
 
-        return this.viajesService.getEstimations();
+        return this.viajesService.getEstimationsWithCircuitBreaker();
+    }
+
+    @GetMapping("/circuit-breaker/disable/estimations")
+    public List getEstimationsWithoutCircuitBreaker(){
+        return this.viajesService.getEstimationsWithoutCircuitBreaker();
     }
 
 }
