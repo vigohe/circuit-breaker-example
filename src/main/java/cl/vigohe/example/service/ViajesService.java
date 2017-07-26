@@ -36,7 +36,11 @@ public class ViajesService {
 
     public List fallback() {
         List polizas = new ArrayList<Estimation>();
-        polizas.add(new Estimation("Local Company", 5));
+        polizas.add(new Estimation("Mocked Data Company 1", 5000));
+        polizas.add(new Estimation("Mocked Data Company 2", 3400));
+        polizas.add(new Estimation("Mocked Data Company 3", 4000));
+        polizas.add(new Estimation("Mocked Data Company 4", 2000));
+
         return polizas;
     }
 
